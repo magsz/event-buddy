@@ -1,0 +1,153 @@
+import express from "express";
+import pool from "../db.js";
+
+const router = express.Router();
+
+//routes
+
+/**Get all events */
+router.get("/", async (req, res) => {
+	try {
+		const events = await pool.query("SELECT * FROM events");
+		res.json(events.rows);
+	} catch (err) {
+		console.error(err.message);
+	}
+});
+
+/**Get events by event Id */
+router.get("/:id", async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const event = await pool.query("SELECT * FROM events WHERE id = $1", [
+			id,
+		]);
+		res.json(event.rows[0]);
+	} catch (err) {
+		console.error(err.message);
+	}
+});
+/**Create an event */
+router.post("/", async (req, res) => {
+	let { title, description, startDate, endDate, location, genre } = req.body;
+
+	if (
+		!title ||
+		!description ||
+		!startDate ||
+		!endDate ||
+		!location ||
+		!genre
+	) {
+		return res.status(400).send("missing requiered fields");
+	}
+
+	try {
+		const result = await pool.query(
+			"INSERT INTO events (title, description, startdate,enddate,location,genre)  VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+			[title, description, startDate, endDate, location, genre]
+		);
+
+		res.status(200).json({
+			message: "Event Created",
+			user: result.rows[0],
+		});
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Server error");
+	}
+});
+
+/** Update an event */
+router.put("/:id", async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const updates = req.body;
+
+		const setClause = Object.keys(updates)
+			.map((key, index) => `${key} = $${index + 1}`)
+			.join(", ");
+
+		const values = Object.values(updates);
+		values.push(id);
+
+		const result = await pool.query(
+			`UPDATE events SET ${setClause} WHERE id = $${values.length} RETURNING *;`,
+			values
+		);
+
+		if (result.rows.length === 0) {
+			return res.status(404).json({ error: "Event not found." });
+		}
+		res.status(200).json({
+			message: "Event updated succesfully",
+			event: result.rows[0],
+		});
+		// const update = await pool.query
+	} catch (err) {
+		console.error(err.message);
+	}
+});
+
+/** Delete an event */
+
+router.delete("/:id", async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const deleteEvent = await pool.query(
+			"DELETE FROM events WHERE id = $1",
+			[id]
+		);
+
+		res.status(200).json({ message: "Event succesfully deleted." });
+	} catch (err) {
+		console.error(err.message);
+	}
+});
+
+/** RSVP to an event */
+
+router.post("/:id/rsvp", async (req, res) => {
+	try {
+		const { id } = req.params;
+		const { user_id, status } = req.body;
+
+		const result = await pool.query(
+			`INSERT INTO rsvps (user_id, event_id, status) 
+        VALUES ($1,$2,$3) 
+        ON CONFLICT (user_id, event_id) 
+        DO UPDATE SET status = EXCLUDED.status 
+        RETURNing *;`,
+			[user_id,id,status]
+		);
+
+		res.status(200).json({
+			message: "RSVP RECORDED",
+			rsvp: result.rows[0],
+		});
+	} catch (err) {
+		console.error(err.message);
+	}
+});
+
+/** Remove RSVP from event */
+
+router.delete('/:id/rsvp', async (req,res) => {
+    try{
+        const {user_id, event_id} = req.body;
+
+        const result = await pool.query(`DELETE FROM rsvps WHERE user_id = $1 AND event_id = $2 RETURNING *;`, [user_id, event_id]);
+
+        if(result.rows.length === 0){
+            return res.status(404).json({error:"RSVP not found"})
+        }
+
+        res.status(200).json({message:"RSVP removed"})
+    }catch(err){
+        console.error(err.message);
+    }
+});
+export default router;
