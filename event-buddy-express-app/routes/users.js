@@ -1,6 +1,11 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import pool from "../db.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import { authenticateToken } from "../middleware/auth.js";
+
+dotenv.config();
 
 const router = express.Router();
 
@@ -15,9 +20,13 @@ router.get("/", async (req, res) => {
 });
 
 /** Get a user by id */
-router.get("/:id", async (req, res) => {
+router.get("/:id", authenticateToken, async (req, res) => {
 	try {
 		const { id } = req.params;
+
+		if (req.user.userId !== parseInt(id)) {
+			return res.status(403).json({ message: "Access denied" });
+		}
 
 		const user = await pool.query("SELECT * FROM users WHERE id = $1", [
 			id,
@@ -28,12 +37,52 @@ router.get("/:id", async (req, res) => {
 	}
 });
 
+router.post("/login", async (req, res) => {
+	const { email, password } = req.body;
+
+	if (!email || !password) {
+		return res.status(400).json({ error: "Missing requred field" });
+	}
+
+	try {
+		const result = await pool.query(
+			"SELECT * FROM users WHERE email = $1",
+			[email]
+		);
+
+		if (result.rows.length === 0) {
+			return res.status(401).json({ message: "Invalid credentials" });
+		}
+
+		const user = result.rows[0];
+
+		const isMatch = await bcrypt.compare(password, user.password);
+
+		if (!isMatch) {
+			return res.status(401).json({ message: "Invalid credentials" });
+		}
+
+		//generate JWT token
+
+		const token = jwt.sign(
+			{ userId: user.id, email: user.email },
+			process.env.JWT_SECRET,
+			{ expiresIn: process.env.TOKEN_EXPARATION }
+		);
+
+		res.json({ message: "Log in Succesful", token });
+	} catch (err) {
+		console.error(err.message);
+		res.status.apply(500).json({ message: "Server error" });
+	}
+});
+
 /** Create a user */
 router.post("/register", async (req, res) => {
 	const { username, email, password } = req.body;
 
 	if (!username || !email || !password) {
-		return res.status(400).send("missing requiered fields");
+		return res.status(400).json({ error: "missing required fields" });
 	}
 
 	try {
@@ -46,7 +95,11 @@ router.post("/register", async (req, res) => {
 
 		res.status(200).json({
 			message: "User Created",
-			user: result.rows[0],
+			user: {
+				id: result.rows[0].id,
+				username: result.rows[0].username,
+				email: result.rows[0].email,
+			},
 		});
 	} catch (err) {
 		console.log(err);

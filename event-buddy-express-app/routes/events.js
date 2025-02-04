@@ -1,5 +1,6 @@
 import express from "express";
 import pool from "../db.js";
+import { authenticateToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -12,6 +13,9 @@ router.get("/", async (req, res) => {
 		res.json(events.rows);
 	} catch (err) {
 		console.error(err.message);
+		return res
+			.status(500)
+			.json({ message: "Database error", details: err.message });
 	}
 });
 
@@ -26,6 +30,9 @@ router.get("/:id", async (req, res) => {
 		res.json(event.rows[0]);
 	} catch (err) {
 		console.error(err.message);
+		return res
+			.status(500)
+			.json({ message: "Database error", details: err.message });
 	}
 });
 /**Create an event */
@@ -55,7 +62,9 @@ router.post("/", async (req, res) => {
 		});
 	} catch (err) {
 		console.log(err);
-		res.status(500).send("Server error");
+		return res
+			.status(500)
+			.json({ message: "Database error", details: err.message });
 	}
 });
 
@@ -88,6 +97,9 @@ router.put("/:id", async (req, res) => {
 		// const update = await pool.query
 	} catch (err) {
 		console.error(err.message);
+		return res
+			.status(500)
+			.json({ message: "Database error", details: err.message });
 	}
 });
 
@@ -105,6 +117,9 @@ router.delete("/:id", async (req, res) => {
 		res.status(200).json({ message: "Event succesfully deleted." });
 	} catch (err) {
 		console.error(err.message);
+		return res
+			.status(500)
+			.json({ message: "Database error", details: err.message });
 	}
 });
 
@@ -121,7 +136,7 @@ router.post("/:id/rsvp", async (req, res) => {
         ON CONFLICT (user_id, event_id) 
         DO UPDATE SET status = EXCLUDED.status 
         RETURNing *;`,
-			[user_id,id,status]
+			[user_id, id, status]
 		);
 
 		res.status(200).json({
@@ -130,24 +145,33 @@ router.post("/:id/rsvp", async (req, res) => {
 		});
 	} catch (err) {
 		console.error(err.message);
+		return res
+			.status(500)
+			.json({ message: "Database error", details: err.message });
 	}
 });
 
 /** Remove RSVP from event */
 
-router.delete('/:id/rsvp', async (req,res) => {
-    try{
-        const {user_id, event_id} = req.body;
+router.delete("/:id/rsvp", async (req, res) => {
+	try {
+		const { user_id, event_id } = req.body;
 
-        const result = await pool.query(`DELETE FROM rsvps WHERE user_id = $1 AND event_id = $2 RETURNING *;`, [user_id, event_id]);
+		const result = await pool.query(
+			`DELETE FROM rsvps WHERE user_id = $1 AND event_id = $2 RETURNING *;`,
+			[user_id, event_id]
+		);
 
-        if(result.rows.length === 0){
-            return res.status(404).json({error:"RSVP not found"})
-        }
+		if (result.rows.length === 0) {
+			return res.status(404).json({ error: "RSVP not found" });
+		}
 
-        res.status(200).json({message:"RSVP removed"})
-    }catch(err){
-        console.error(err.message);
-    }
+		res.status(200).json({ message: "RSVP removed" });
+	} catch (err) {
+		console.error(err.message);
+		return res
+			.status(500)
+			.json({ message: "Database error", details: err.message });
+	}
 });
 export default router;
