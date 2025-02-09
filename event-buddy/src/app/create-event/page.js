@@ -26,9 +26,14 @@ export default function CreateEvent() {
 		setMessage("");
 
 		try {
+			const token = localStorage.getItem("token");
+
 			const response = await fetch("http://localhost:8000/events", {
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
 				body: JSON.stringify(formData),
 			});
 

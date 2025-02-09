@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 });
 
 /** Get a user by id */
-router.get("/:id", authenticateToken, async (req, res) => {
+router.get("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
 
@@ -36,6 +36,13 @@ router.get("/:id", authenticateToken, async (req, res) => {
 		console.error(err.message);
 	}
 });
+
+/** Refresh Token */
+router.post("/token", (req, res) => {
+	const refrestToken = req.body.token;
+});
+
+/** User Log In */
 
 router.post("/login", async (req, res) => {
 	const { email, password } = req.body;
@@ -67,13 +74,13 @@ router.post("/login", async (req, res) => {
 		const token = jwt.sign(
 			{ userId: user.id, email: user.email },
 			process.env.JWT_SECRET,
-			{ expiresIn: process.env.TOKEN_EXPARATION }
+			{ expiresIn: process.env.TOKEN_EXPIRATION }
 		);
 
 		res.json({ message: "Log in Succesful", token });
 	} catch (err) {
 		console.error(err.message);
-		res.status.apply(500).json({ message: "Server error" });
+		res.status(500).json({ message: "Server error" });
 	}
 });
 

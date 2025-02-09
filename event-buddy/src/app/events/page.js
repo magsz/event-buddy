@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 
 export default function Events() {
 	const [events, setEvents] = useState([]);
+	const [selectedRSVPs, setSelectedRSVPs] = useState({}); // Store RSVP per event
 
 	useEffect(() => {
 		async function fetchEvents() {
 			try {
+				const token = localStorage.getItem("token");
+
 				const response = await fetch(
 					"http://localhost:8000/events"
 				);
@@ -19,6 +22,19 @@ export default function Events() {
 		}
 		fetchEvents();
 	}, []);
+
+	/** Handle RSVP Selection */
+	const handleSelect = (eventId, value) => {
+		setSelectedRSVPs((prev) => ({
+			...prev,
+			[eventId]: prev[eventId] === value ? "" : value, // Toggle selection
+		}));
+	};
+
+	const baseStyles =
+		"px-4 py-2 rounded-lg transition-all duration-300 font-semibold focus:outline-none";
+	const selectedStyles = "bg-purple-600 text-white";
+	const unselectedStyles = "bg-gray-200 text-black hover:bg-gray-300";
 
 	const eventsList = events.map((event) => (
 		<div key={event.id} className="p-6 rounded-lg shadow-lg mb-4">
@@ -34,6 +50,46 @@ export default function Events() {
 				<br />
 				{new Date(event.enddate).toLocaleDateString("en-US")}
 			</span>
+
+			{/* RSVP Buttons */}
+			<div className="mt-4 flex gap-4">
+				{!selectedRSVPs[event.id] ? (
+					<>
+						<button
+							onClick={() =>
+								handleSelect(event.id, "Going")
+							}
+							className={`${baseStyles} ${unselectedStyles}`}>
+							Going
+						</button>
+						<button
+							onClick={() =>
+								handleSelect(event.id, "Maybe")
+							}
+							className={`${baseStyles} ${unselectedStyles}`}>
+							Maybe
+						</button>
+						<button
+							onClick={() =>
+								handleSelect(event.id, "Not Going")
+							}
+							className={`${baseStyles} ${unselectedStyles}`}>
+							Not Going
+						</button>
+					</>
+				) : (
+					<button
+						onClick={() =>
+							handleSelect(
+								event.id,
+								selectedRSVPs[event.id]
+							)
+						}
+						className={`${baseStyles} ${selectedStyles}`}>
+						{selectedRSVPs[event.id]}
+					</button>
+				)}
+			</div>
 		</div>
 	));
 
@@ -47,7 +103,7 @@ export default function Events() {
 					type="text"
 					placeholder="Search for events..."
 					className="w-full max-w-md px-4 py-2 border text-black border-purple-500 rounded-lg focus:outline-none focus:ring-purple-400"></input>
-				<button className="px-4 py-2 bg-purple-700 text-white font-seminold rounded-lg hover:bg-purple-500 transition duration-300">
+				<button className="px-4 py-2 bg-purple-700 text-white font-semibold rounded-lg hover:bg-purple-500 transition duration-300">
 					Search
 				</button>
 			</div>

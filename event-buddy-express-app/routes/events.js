@@ -6,7 +6,7 @@ const router = express.Router();
 
 //routes
 
-/**Get all events */
+/**Get all events Public access*/
 router.get("/", async (req, res) => {
 	try {
 		const events = await pool.query("SELECT * FROM events");
@@ -18,6 +18,7 @@ router.get("/", async (req, res) => {
 			.json({ message: "Database error", details: err.message });
 	}
 });
+
 
 /**Get events by event Id */
 router.get("/:id", async (req, res) => {
@@ -36,7 +37,7 @@ router.get("/:id", async (req, res) => {
 	}
 });
 /**Create an event */
-router.post("/", async (req, res) => {
+router.post("/", authenticateToken, async (req, res) => {
 	let { title, description, startDate, endDate, location, genre } = req.body;
 
 	if (
