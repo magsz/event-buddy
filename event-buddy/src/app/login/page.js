@@ -23,13 +23,15 @@ export default function LogIn() {
 	async function handleSubmit(e) {
 		e.preventDefault();
 
+		console.log(userLogin);
+
 		try {
 			const response = await fetch(
 				"http://localhost:8000/users/login",
 				{
 					method: "POST",
 					headers: {
-						"Content-Type": "application/json"
+						"Content-Type": "application/json",
 					},
 					body: JSON.stringify(userLogin),
 				}
@@ -42,7 +44,7 @@ export default function LogIn() {
 			const data = await response.json();
 			console.log("Login Successful:", data);
 
-			localStorage.setItem("token",data.token);
+			localStorage.setItem("token", data.token);
 
 			if (response.ok) {
 				router.push("/events");
@@ -50,6 +52,10 @@ export default function LogIn() {
 		} catch (error) {
 			console.log(error.message);
 		}
+	}
+
+	function handleSignUpSubmit() {
+		router.push("/sign-up");
 	}
 
 	return (
@@ -124,6 +130,7 @@ export default function LogIn() {
 				{/* Sign Up Button */}
 				<button
 					type="button"
+					onClick={handleSignUpSubmit}
 					className="mt-4 w-full bg-indigo-900 text-white py-2 rounded-md hover:bg-gray-800 transition">
 					Sign Up
 				</button>

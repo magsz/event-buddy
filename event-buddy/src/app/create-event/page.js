@@ -53,8 +53,8 @@ export default function CreateEvent() {
 				location: "",
 				genre: "",
 			});
-		} catch (error) {
-			setMessage("Error: " + error.message);
+		} catch (err) {
+			setMessage("Error: " + err.message);
 		} finally {
 			setLoading(false);
 		}

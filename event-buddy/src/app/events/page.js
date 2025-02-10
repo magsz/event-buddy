@@ -1,21 +1,40 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Events() {
 	const [events, setEvents] = useState([]);
 	const [selectedRSVPs, setSelectedRSVPs] = useState({}); // Store RSVP per event
+
+	const router = useRouter();
 
 	useEffect(() => {
 		async function fetchEvents() {
 			try {
 				const token = localStorage.getItem("token");
 
+				if (!token) {
+					router.push("/login");
+					return;
+				}
+
 				const response = await fetch(
-					"http://localhost:8000/events"
+					"http://localhost:8000/events",
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+					}
 				);
 				const data = await response.json();
-				console.log(data);
-				setEvents(data);
+
+				if (Array.isArray(data)) {
+					setEvents(data);
+				} else {
+					setEvents([]);
+				}
 			} catch (error) {
 				console.error("Error fetching events:", error);
 			}
