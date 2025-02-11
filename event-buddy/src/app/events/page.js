@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Events() {
 	const [events, setEvents] = useState([]);
@@ -57,9 +58,12 @@ export default function Events() {
 
 	const eventsList = events.map((event) => (
 		<div key={event.id} className="p-6 rounded-lg shadow-lg mb-4">
-			<h3 className="text-2xl font-semibold text-purple-500">
+			<Link
+				href={"events/" + event.id}
+				key={event.id}
+				className="text-2xl font-semibold text-purple-500">
 				{event.title}
-			</h3>
+			</Link>
 			<p className="text-lg mt-2">{event.description}</p>
 			<p className="text-sm text-gray-400 mt-2">{event.location}</p>
 			<span className="text-sm text-purple-300">{event.genre}</span>

@@ -12,7 +12,4 @@ GET http://localhost:8000/events
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImVtYWlsIjoibWFyaW9AbWUuY29tIiwiaWF0IjoxNzM5MTM0NjM3LCJleHAiOjE3MzkxMzgyMzd9.J4CxQfi3qHjAu3iPdilzws7xnpZlcQnSYvb_iXgyEOA
 
 ###
-GET http://localhost:8000/users
-
-###
-DELETE "http://localhost:8000/users"
+GET http://localhost:8000/events
