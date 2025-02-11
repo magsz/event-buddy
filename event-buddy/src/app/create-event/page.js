@@ -5,8 +5,8 @@ export default function CreateEvent() {
 	const [formData, setFormData] = useState({
 		title: "",
 		description: "",
-		startDate: "",
-		endDate: "",
+		startdate: "",
+		enddate: "",
 		location: "",
 		genre: "",
 	});
@@ -48,8 +48,8 @@ export default function CreateEvent() {
 			setFormData({
 				title: "",
 				description: "",
-				startDate: "",
-				endDate: "",
+				startdate: "",
+				enddate: "",
 				location: "",
 				genre: "",
 			});
@@ -86,16 +86,16 @@ export default function CreateEvent() {
 					required></textarea>
 				<input
 					type="date"
-					name="startDate"
-					value={formData.startDate}
+					name="startdate"
+					value={formData.startdate}
 					onChange={handleChange}
 					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
 					required
 				/>
 				<input
 					type="date"
-					name="endDate"
-					value={formData.endDate}
+					name="enddate"
+					value={formData.enddate}
 					onChange={handleChange}
 					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
 					required

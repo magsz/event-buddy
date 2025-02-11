@@ -5,7 +5,6 @@ import Link from "next/link";
 
 export default function Events() {
 	const [events, setEvents] = useState([]);
-	const [selectedRSVPs, setSelectedRSVPs] = useState({}); // Store RSVP per event
 
 	const router = useRouter();
 
@@ -43,19 +42,6 @@ export default function Events() {
 		fetchEvents();
 	}, []);
 
-	/** Handle RSVP Selection */
-	const handleSelect = (eventId, value) => {
-		setSelectedRSVPs((prev) => ({
-			...prev,
-			[eventId]: prev[eventId] === value ? "" : value, // Toggle selection
-		}));
-	};
-
-	const baseStyles =
-		"px-4 py-2 rounded-lg transition-all duration-300 font-semibold focus:outline-none";
-	const selectedStyles = "bg-purple-600 text-white";
-	const unselectedStyles = "bg-gray-200 text-black hover:bg-gray-300";
-
 	const eventsList = events.map((event) => (
 		<div key={event.id} className="p-6 rounded-lg shadow-lg mb-4">
 			<Link
@@ -69,50 +55,9 @@ export default function Events() {
 			<span className="text-sm text-purple-300">{event.genre}</span>
 			<br />
 			<span className="text-sm text-gray-500 mt-2">
-				{new Date(event.startdate).toLocaleDateString("en-US")}
-				<br />
+				{new Date(event.startdate).toLocaleDateString("en-US")}-
 				{new Date(event.enddate).toLocaleDateString("en-US")}
 			</span>
-
-			{/* RSVP Buttons */}
-			<div className="mt-4 flex gap-4">
-				{!selectedRSVPs[event.id] ? (
-					<>
-						<button
-							onClick={() =>
-								handleSelect(event.id, "Going")
-							}
-							className={`${baseStyles} ${unselectedStyles}`}>
-							Going
-						</button>
-						<button
-							onClick={() =>
-								handleSelect(event.id, "Maybe")
-							}
-							className={`${baseStyles} ${unselectedStyles}`}>
-							Maybe
-						</button>
-						<button
-							onClick={() =>
-								handleSelect(event.id, "Not Going")
-							}
-							className={`${baseStyles} ${unselectedStyles}`}>
-							Not Going
-						</button>
-					</>
-				) : (
-					<button
-						onClick={() =>
-							handleSelect(
-								event.id,
-								selectedRSVPs[event.id]
-							)
-						}
-						className={`${baseStyles} ${selectedStyles}`}>
-						{selectedRSVPs[event.id]}
-					</button>
-				)}
-			</div>
 		</div>
 	));
 
