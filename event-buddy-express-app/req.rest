@@ -2,14 +2,31 @@ POST http://localhost:8000/users/login
 Content-Type: application/json
 
 {
-    "email": "mario@me.com",
-    "password": "password1"
+    "email": "g59@email.com",
+    "password": "ugliestg59"
 }
 
 ###
 
 GET http://localhost:8000/events
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImVtYWlsIjoibWFyaW9AbWUuY29tIiwiaWF0IjoxNzM5MTM0NjM3LCJleHAiOjE3MzkxMzgyMzd9.J4CxQfi3qHjAu3iPdilzws7xnpZlcQnSYvb_iXgyEOA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImVtYWlsIjoiZzU5QGVtYWlsLmNvbSIsImlhdCI6MTczOTQwNTg3NCwiZXhwIjoxNzM5NDA5NDc0fQ.od2HjGwdQMBYkQY3puU2nHxfdvAwiauPxrIuHI4C4I0
 
 ###
 GET http://localhost:8000/events
+
+###
+GET http://localhost:8000/events/search?search=hack
+
+###
+POST http://localhost:8000/events
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImVtYWlsIjoiZzU5QGVtYWlsLmNvbSIsImlhdCI6MTczOTQxNDk4MSwiZXhwIjoxNzM5NDE4NTgxfQ.LPniqpi0kPewfCsFlSD83cN_F1onnKMysie8fm2xF2Y
+
+{
+    "title": "Hack-Nation",
+    "description":"Convention showcasing tech for white hat hackers. Competitions, prizes, and more!",
+    "startDate":"02/22/2025",
+    "endDate":"02/23/2025",
+    "location":"Houston",
+    "genre":"Tech"
+}

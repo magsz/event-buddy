@@ -5,8 +5,8 @@ export default function CreateEvent() {
 	const [formData, setFormData] = useState({
 		title: "",
 		description: "",
-		startdate: "",
-		enddate: "",
+		startDate: "",
+		endDate: "",
 		location: "",
 		genre: "",
 	});
@@ -27,6 +27,8 @@ export default function CreateEvent() {
 
 		try {
 			const token = localStorage.getItem("token");
+			console.log(token);
+			console.log(formData);
 
 			const response = await fetch("http://localhost:8000/events", {
 				method: "POST",
@@ -36,6 +38,8 @@ export default function CreateEvent() {
 				},
 				body: JSON.stringify(formData),
 			});
+
+			console.log(response);
 
 			if (!response.ok) {
 				throw new Error(
@@ -48,8 +52,8 @@ export default function CreateEvent() {
 			setFormData({
 				title: "",
 				description: "",
-				startdate: "",
-				enddate: "",
+				startDate: "",
+				endDate: "",
 				location: "",
 				genre: "",
 			});
@@ -86,16 +90,16 @@ export default function CreateEvent() {
 					required></textarea>
 				<input
 					type="date"
-					name="startdate"
-					value={formData.startdate}
+					name="startDate"
+					value={formData.startDate}
 					onChange={handleChange}
 					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
 					required
 				/>
 				<input
 					type="date"
-					name="enddate"
-					value={formData.enddate}
+					name="endDate"
+					value={formData.endDate}
 					onChange={handleChange}
 					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
 					required

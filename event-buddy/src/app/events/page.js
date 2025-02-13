@@ -5,11 +5,16 @@ import Link from "next/link";
 
 export default function Events() {
 	const [events, setEvents] = useState([]);
+	const [query, setQuery] = useState("");
+	const [isSearching, setIsSearching] = useState(false);
 
 	const router = useRouter();
 
 	useEffect(() => {
-		async function fetchEvents() {
+		fetchEvents();
+	}, []);
+
+	async function fetchEvents(query) {
 			try {
 				const token = localStorage.getItem("token");
 
@@ -35,12 +40,52 @@ export default function Events() {
 				} else {
 					setEvents([]);
 				}
-			} catch (error) {
-				console.error("Error fetching events:", error);
+			} catch (err) {
+				console.error("Error fetching events:", err.message);
 			}
+		
+	}
+
+	async function fetchSearchQuery(query){
+		try{
+			try {
+
+				console.log(query)
+				const token = localStorage.getItem("token");
+
+				const res = await fetch(
+					`http://localhost:8000/events/${query}`,
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				const data = await res.json();
+
+				if (Array.isArray(data)) {
+					setEvents(data);
+				} else {
+					setEvents([]);
+				}
+			} catch (err) {
+				console.error("Error fetching events:", err.message);
+			}
+		}catch (err){
+
 		}
-		fetchEvents();
-	}, []);
+	}
+
+	function handleSearchQuery(e) {
+		setQuery(e.target.value);
+	}
+
+	function handleSearch() {
+		fetchSearchQuery(query);
+	}
 
 	const eventsList = events.map((event) => (
 		<div key={event.id} className="p-6 rounded-lg shadow-lg mb-4">
@@ -70,8 +115,11 @@ export default function Events() {
 				<input
 					type="text"
 					placeholder="Search for events..."
+					onChange={handleSearchQuery}
 					className="w-full max-w-md px-4 py-2 border text-black border-purple-500 rounded-lg focus:outline-none focus:ring-purple-400"></input>
-				<button className="px-4 py-2 bg-purple-700 text-white font-semibold rounded-lg hover:bg-purple-500 transition duration-300">
+				<button
+					onClick={handleSearch}
+					className="px-4 py-2 bg-purple-700 text-white font-semibold rounded-lg hover:bg-purple-500 transition duration-300">
 					Search
 				</button>
 			</div>
