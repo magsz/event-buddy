@@ -29,7 +29,6 @@ router.get("/search", async (req, res) => {
 			`SELECT * FROM events WHERE title LIKE $1 OR description LIKE $1 OR location LIKE $1 OR genre LIKE $1`,
 			[`%${searchQuery}%`]
 		);
-		console.log(events.rows);
 		res.json(events.rows);
 	} catch (err) {
 		res.status(400).json({

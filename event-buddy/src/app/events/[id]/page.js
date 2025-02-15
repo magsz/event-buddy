@@ -8,6 +8,7 @@ export default function EventDetail() {
 	const [event, setEvent] = useState(null);
 	const [error, setError] = useState(null);
 	const [isEditing, setIsEditing] = useState(false);
+	const [rsvp, setRsvp] = useState(false);
 	const [formData, setFormData] = useState({
 		title: "",
 		description: "",
@@ -82,6 +83,10 @@ export default function EventDetail() {
 		} catch (err) {
 			console.log(err.message);
 		}
+	}
+
+	function handleRsvp() {
+		setRsvp((prev) => !prev);
 	}
 
 	if (error) return <p>Error: {error}</p>;
@@ -188,6 +193,11 @@ export default function EventDetail() {
 									setIsEditing(true);
 								}}>
 								Edit
+							</button>
+							<button
+								className="text-sm w-12 h-6 rounded-md bg-gray-200 text-black hover:bg-gray-300"
+								onClick={handleRsvp}>
+								{rsvp ? "✔️" : "RSVP"}
 							</button>
 						</div>
 					</div>

@@ -11,10 +11,7 @@ export default function Events() {
 	const router = useRouter();
 
 	useEffect(() => {
-		fetchEvents();
-	}, []);
-
-	async function fetchEvents(query) {
+		async function fetchEvents() {
 			try {
 				const token = localStorage.getItem("token");
 
@@ -43,39 +40,35 @@ export default function Events() {
 			} catch (err) {
 				console.error("Error fetching events:", err.message);
 			}
-		
-	}
+		}
+		fetchEvents();
+	}, []);
 
-	async function fetchSearchQuery(query){
-		try{
-			try {
+	async function fetchSearchQuery(query) {
+		try {
+			setEvents([]);
+			const token = localStorage.getItem("token");
 
-				console.log(query)
-				const token = localStorage.getItem("token");
-
-				const res = await fetch(
-					`http://localhost:8000/events/${query}`,
-					{
-						method: "GET",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-
-				const data = await res.json();
-
-				if (Array.isArray(data)) {
-					setEvents(data);
-				} else {
-					setEvents([]);
+			const res = await fetch(
+				`http://localhost:8000/events/search?search=${query}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
 				}
-			} catch (err) {
-				console.error("Error fetching events:", err.message);
-			}
-		}catch (err){
+			);
 
+			const data = await res.json();
+
+			if (Array.isArray(data)) {
+				setEvents(data);
+			} else {
+				setEvents([]);
+			}
+		} catch (err) {
+			console.error("Error fetching events:", err.message);
 		}
 	}
 

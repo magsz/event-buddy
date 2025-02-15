@@ -7,15 +7,20 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:8000/users
+
+###
 
 GET http://localhost:8000/events
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImVtYWlsIjoiZzU5QGVtYWlsLmNvbSIsImlhdCI6MTczOTQwNTg3NCwiZXhwIjoxNzM5NDA5NDc0fQ.od2HjGwdQMBYkQY3puU2nHxfdvAwiauPxrIuHI4C4I0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImVtYWlsIjoiZzU5QGVtYWlsLmNvbSIsImlhdCI6MTczOTY0NTcxNywiZXhwIjoxNzM5NjQ5MzE3fQ.oS71H-fDW_LHuI4ikH4ePfO3FEz1FbHlpVrr_TYws2w
 
 ###
 GET http://localhost:8000/events
 
 ###
-GET http://localhost:8000/events/search?search=hack
+GET http://localhost:8000/events/search?search=tech
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImVtYWlsIjoiZzU5QGVtYWlsLmNvbSIsImlhdCI6MTczOTY0NTcxNywiZXhwIjoxNzM5NjQ5MzE3fQ.oS71H-fDW_LHuI4ikH4ePfO3FEz1FbHlpVrr_TYws2w
+
 
 ###
 POST http://localhost:8000/events
@@ -29,4 +34,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImVtY
     "endDate":"02/23/2025",
     "location":"Houston",
     "genre":"Tech"
+}
+
+###
+POST http://localhost:8000/events/1/rsvp
+Content-Type: application/json
+
+{
+    "user_id":7,
+    "status": "going"
 }

@@ -23,8 +23,6 @@ export default function LogIn() {
 	async function handleSubmit(e) {
 		e.preventDefault();
 
-		console.log(userLogin);
-
 		try {
 			const response = await fetch(
 				"http://localhost:8000/users/login",
@@ -45,6 +43,7 @@ export default function LogIn() {
 			console.log("Login Successful:", data);
 
 			localStorage.setItem("token", data.token);
+			localStorage.setItem("userId", data.userId);
 
 			if (response.ok) {
 				router.push("/events");
