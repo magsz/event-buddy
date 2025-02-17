@@ -1,5 +1,6 @@
 import "./globals.css";
 import Link from "next/link";
+import LogoutButton from "./logout.js";
 
 export default function RootLayout({ children }) {
 	return (
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
 							href="/login">
 							Log In
 						</Link>
+						<LogoutButton></LogoutButton>
 					</div>
 				</nav>
 				{children}
