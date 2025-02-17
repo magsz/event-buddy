@@ -44,3 +44,14 @@ Content-Type: application/json
     "user_id":7,
     "status": "going"
 }
+
+###
+DELETE http://localhost:8000/events/1/rsvp
+Content-Type: application/json
+
+{
+    "user_id": 7
+}
+
+###
+GET http://localhost:8000/events/1/rsvps

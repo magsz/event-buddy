@@ -174,11 +174,12 @@ router.post("/:id/rsvp", async (req, res) => {
 
 router.delete("/:id/rsvp", async (req, res) => {
 	try {
-		const { user_id, event_id } = req.body;
+		const { id } = req.params;
+		const { user_id } = req.body;
 
 		const result = await pool.query(
 			`DELETE FROM rsvps WHERE user_id = $1 AND event_id = $2 RETURNING *;`,
-			[user_id, event_id]
+			[user_id, id]
 		);
 
 		if (result.rows.length === 0) {
@@ -192,5 +193,17 @@ router.delete("/:id/rsvp", async (req, res) => {
 			.status(500)
 			.json({ message: "Database error", details: err.message });
 	}
+});
+
+router.get("/:id/rsvps", async (req, res) => {
+	const query = "SELECT * FROM rsvps";
+
+	const result = await pool.query(query);
+
+	if (result.rows.length === 0) {
+		res.status(404).json({ message: "error" });
+	}
+
+	res.status(200).json({ message: "Success", rsvp: result.rows });
 });
 export default router;

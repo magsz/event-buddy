@@ -5,10 +5,11 @@ import { useParams, useRouter } from "next/navigation";
 
 export default function EventDetail() {
 	const { id } = useParams();
+	const userId = localStorage.getItem("userId");
 	const [event, setEvent] = useState(null);
 	const [error, setError] = useState(null);
 	const [isEditing, setIsEditing] = useState(false);
-	const [rsvp, setRsvp] = useState(false);
+	const [rsvp, setRsvp] = useState(true);
 	const [formData, setFormData] = useState({
 		title: "",
 		description: "",
@@ -85,8 +86,47 @@ export default function EventDetail() {
 		}
 	}
 
-	function handleRsvp() {
+	async function handleRsvp() {
 		setRsvp((prev) => !prev);
+		if (rsvp) {
+			try {
+				const response = await fetch(
+					`http://localhost:8000/events/${id}/rsvp`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							user_id: userId,
+							status: "going",
+						}),
+					}
+				);
+
+				const data = await response.json();
+
+				console.log(data);
+			} catch (err) {
+				console.error(err.message);
+			}
+		} else {
+			const response = await fetch(
+				`http://localhost:8000/events/${id}/rsvp`,
+				{
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						user_id: userId,
+					}),
+				}
+			);
+
+			const data = await response.json();
+			console.log(data);
+		}
 	}
 
 	if (error) return <p>Error: {error}</p>;
@@ -197,7 +237,7 @@ export default function EventDetail() {
 							<button
 								className="text-sm w-12 h-6 rounded-md bg-gray-200 text-black hover:bg-gray-300"
 								onClick={handleRsvp}>
-								{rsvp ? "✔️" : "RSVP"}
+								{rsvp ? "RSVP" : "✔️"}
 							</button>
 						</div>
 					</div>

@@ -27,9 +27,6 @@ export default function CreateEvent() {
 
 		try {
 			const token = localStorage.getItem("token");
-			console.log(token);
-			console.log(formData);
-
 			const response = await fetch("http://localhost:8000/events", {
 				method: "POST",
 				headers: {
