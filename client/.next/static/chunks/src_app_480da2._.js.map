@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/magsz/Documents/VS%20Code/Projects/event-buddy/event-buddy/src/app/logout.js"],"sourcesContent":["\"use client\";\n\nimport { useRouter } from \"next/navigation\";\n\nexport default function LogoutButton() {\n\tconst router = useRouter();\n\n\tfunction handleLogout() {\n\t\tlocalStorage.removeItem(\"token\");\n\t\tlocalStorage.removeItem(\"userid\");\n\n\t\trouter.push(\"/login\");\n\t}\n\n\treturn (\n\t\t<button\n\t\t\tclassName=\"m-4 hover:text-purple-500 text-md\"\n\t\t\tonClick={handleLogout}>\n\t\t\tLog Out\n\t\t</button>\n\t);\n}\n"],"names":[],"mappings":";;;;AAEA;;;AAFA;;AAIe,SAAS;;IACvB,MAAM,SAAS,CAAA,GAAA,qIAAA,CAAA,YAAS,AAAD;IAEvB,SAAS;QACR,aAAa,UAAU,CAAC;QACxB,aAAa,UAAU,CAAC;QAExB,OAAO,IAAI,CAAC;IACb;IAEA,qBACC,6LAAC;QACA,WAAU;QACV,SAAS;kBAAc;;;;;;AAI1B;GAjBwB;;QACR,qIAAA,CAAA,YAAS;;;KADD"}},
-    {"offset": {"line": 45, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}
