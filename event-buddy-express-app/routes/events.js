@@ -88,7 +88,7 @@ router.post("/", authenticateToken, async (req, res) => {
 });
 
 /** Update an event */
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticateToken, async (req, res) => {
 	try {
 		const { id } = req.params;
 
@@ -124,7 +124,7 @@ router.put("/:id", async (req, res) => {
 
 /** Delete an event */
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
 	try {
 		const { id } = req.params;
 

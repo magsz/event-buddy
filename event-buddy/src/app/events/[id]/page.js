@@ -44,7 +44,6 @@ export default function EventDetail() {
 	}
 
 	async function handleEdit() {
-		console.log(formData);
 		try {
 			const response = await fetch(
 				`http://localhost:8000/events/${id}`,

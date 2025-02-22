@@ -55,3 +55,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8000/events/1/rsvps
+
+###
+GET http://localhost:8000/events
+
