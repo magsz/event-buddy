@@ -37,11 +37,6 @@ router.get("/:id", async (req, res) => {
 	}
 });
 
-/** Refresh Token */
-router.post("/token", (req, res) => {
-	const refrestToken = req.body.token;
-});
-
 /** User Log In */
 
 router.post("/login", async (req, res) => {
