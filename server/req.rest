@@ -12,7 +12,7 @@ GET http://localhost:8000/users
 ###
 
 GET http://localhost:8000/events
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImVtYWlsIjoiZzU5QGVtYWlsLmNvbSIsImlhdCI6MTczOTY0NTcxNywiZXhwIjoxNzM5NjQ5MzE3fQ.oS71H-fDW_LHuI4ikH4ePfO3FEz1FbHlpVrr_TYws2w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImVtYWlsIjoiZzU5QGVtYWlsLmNvbSIsImlhdCI6MTc0MDI2NzA0NiwiZXhwIjoxNzQwMjcwNjQ2fQ.66lRtr-elewmwwf-4o1foMbVIGZCF_GmeB0WjUniNiU"
 
 ###
 GET http://localhost:8000/events
@@ -58,4 +58,18 @@ GET http://localhost:8000/events/1/rsvps
 
 ###
 GET http://localhost:8000/events
+
+###
+PUT http://localhost:8000/events/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImVtYWlsIjoiZzU5QGVtYWlsLmNvbSIsImlhdCI6MTc0MDI2NzYxOCwiZXhwIjoxNzQwMjcxMjE4fQ.di5QpKd4BPCCpehGALijOEq_M4jy-u6urptxjXmuAQU
+
+{
+    "title": "Hacker World 25'",
+    "description": "World of hackers",
+    "startDate": "02/28/2025",
+    "endDate": "02/28/2025",
+    "location": "Austin",
+    "genre": "javascript"
+}
 

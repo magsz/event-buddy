@@ -9,7 +9,7 @@ const router = express.Router();
 /**Get all events Public access*/
 router.get("/", async (req, res) => {
 	try {
-		const events = await pool.query("SELECT * FROM events");
+		const events = await pool.query("SELECT * FROM events ORDER BY id");
 		res.json(events.rows);
 	} catch (err) {
 		console.error(err.message);

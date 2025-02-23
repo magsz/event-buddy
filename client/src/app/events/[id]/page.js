@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 export default function EventDetail() {
 	const { id } = useParams();
 	const userId = localStorage.getItem("userId");
+	const token = localStorage.getItem("token");
 	const [event, setEvent] = useState(null);
 	const [error, setError] = useState(null);
 	const [isEditing, setIsEditing] = useState(false);
@@ -51,6 +52,7 @@ export default function EventDetail() {
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
 					},
 					body: JSON.stringify(formData),
 				}
@@ -73,6 +75,7 @@ export default function EventDetail() {
 				`http://localhost:8000/events/${id}`,
 				{
 					method: "DELETE",
+					Authorization: `Bearer ${token}`,
 				}
 			);
 

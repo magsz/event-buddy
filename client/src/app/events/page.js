@@ -32,12 +32,6 @@ export default function Events() {
 				);
 				const data = await response.json();
 				setEvents(data);
-
-				// if (Array.isArray(data)) {
-				// 	setEvents(data);
-				// } else {
-				// 	setEvents([]);
-				// }
 			} catch (err) {
 				console.error("Error fetching events:", err.message);
 			}
@@ -63,12 +57,6 @@ export default function Events() {
 
 			const data = await res.json();
 			setEvents(data);
-
-			// if (Array.isArray(data)) {
-			// 	setEvents(data);
-			// } else {
-			// 	setEvents([]);
-			// }
 		} catch (err) {
 			console.error("Error fetching events:", err.message);
 		}
