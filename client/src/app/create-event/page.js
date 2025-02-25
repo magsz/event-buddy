@@ -1,6 +1,7 @@
 "use client";
 import "../globals.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function CreateEvent() {
 	const [formData, setFormData] = useState({
@@ -14,6 +15,17 @@ export default function CreateEvent() {
 
 	const [loading, setLoading] = useState(false);
 	const [message, setMessage] = useState("");
+
+	const router = useRouter();
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+
+		if (!token) {
+			router.push("/login");
+			return;
+		}
+	}, []);
 
 	// Handle input changes
 	const handleChange = (e) => {
