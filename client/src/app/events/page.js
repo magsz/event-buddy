@@ -32,8 +32,8 @@ export default function Events() {
 				);
 				const data = await response.json();
 				setEvents(data);
-			} catch (err) {
-				console.error("Error fetching events:", err.message);
+			} catch (error) {
+				alert(error);
 			}
 		}
 		fetchEvents();
@@ -57,8 +57,8 @@ export default function Events() {
 
 			const data = await res.json();
 			setEvents(data);
-		} catch (err) {
-			console.error("Error fetching events:", err.message);
+		} catch (error) {
+			alert(error)
 		}
 	}
 

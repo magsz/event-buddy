@@ -12,23 +12,6 @@ app.use(cors());
 app.use("/users", userRouter);
 app.use("/events", eventRouter);
 
-app.get("/test", (req, res) => {
-	console.log("hi");
-	res.status(200).send("all good bro");
-});
-
-app.get("/", async (req, res) => {
-	try {
-		const result = await pool.query("SELECT * FROM users;");
-		res.json(result.rows);
-	} catch (error) {
-		res.status(500).json({
-			message: "Failed to connect to the database",
-			error: error.message,
-		});
-	}
-});
-
 app.listen(process.env.PORT, () => {
 	console.log("Server is running on localhost 8000");
 });

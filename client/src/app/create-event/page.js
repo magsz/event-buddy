@@ -36,8 +36,6 @@ export default function CreateEvent() {
 				body: JSON.stringify(formData),
 			});
 
-			console.log(response);
-
 			if (!response.ok) {
 				throw new Error(
 					`Failed to create event: ${response.statusText}`
@@ -54,8 +52,8 @@ export default function CreateEvent() {
 				location: "",
 				genre: "",
 			});
-		} catch (err) {
-			setMessage("Error: " + err.message);
+		} catch (error) {
+			setMessage("Error: " + error.message);
 		} finally {
 			setLoading(false);
 		}

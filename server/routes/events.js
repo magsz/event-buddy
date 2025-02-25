@@ -6,16 +6,13 @@ const router = express.Router();
 
 //routes
 
-/**Get all events Public access*/
+/**Get all events*/
 router.get("/", async (req, res) => {
 	try {
 		const events = await pool.query("SELECT * FROM events ORDER BY id");
 		res.json(events.rows);
 	} catch (err) {
-		console.error(err.message);
-		return res
-			.status(500)
-			.json({ message: "Database error", details: err.message });
+		res.status(404).json({ message: err.message });
 	}
 });
 
@@ -31,10 +28,7 @@ router.get("/search", async (req, res) => {
 		);
 		res.json(events.rows);
 	} catch (err) {
-		res.status(400).json({
-			message: "Cannot process request",
-			error: err.message,
-		});
+		res.status(404).json({ message: err.message });
 	}
 });
 
@@ -48,12 +42,10 @@ router.get("/:id", async (req, res) => {
 		]);
 		res.json(event.rows[0]);
 	} catch (err) {
-		console.error(err.message);
-		return res
-			.status(500)
-			.json({ message: "Database error", details: err.message });
+		res.status(404).json({ message: err.message });
 	}
 });
+
 /**Create an event */
 router.post("/", authenticateToken, async (req, res) => {
 	let { title, description, startDate, endDate, location, genre } = req.body;
@@ -80,10 +72,7 @@ router.post("/", authenticateToken, async (req, res) => {
 			user: result.rows[0],
 		});
 	} catch (err) {
-		console.log(err);
-		return res
-			.status(500)
-			.json({ message: "Database error", details: err.message });
+		res.status(404).json({ message: err.message });
 	}
 });
 
@@ -113,12 +102,8 @@ router.put("/:id", authenticateToken, async (req, res) => {
 			message: "Event updated succesfully",
 			event: result.rows[0],
 		});
-		// const update = await pool.query
 	} catch (err) {
-		console.error(err.message);
-		return res
-			.status(500)
-			.json({ message: "Database error", details: err.message });
+		res.status(404).json({ message: err.message });
 	}
 });
 
@@ -135,10 +120,7 @@ router.delete("/:id", authenticateToken, async (req, res) => {
 
 		res.status(200).json({ message: "Event succesfully deleted." });
 	} catch (err) {
-		console.error(err.message);
-		return res
-			.status(500)
-			.json({ message: "Database error", details: err.message });
+		res.status(404).json({ message: err.message });
 	}
 });
 
@@ -154,7 +136,7 @@ router.post("/:id/rsvp", async (req, res) => {
         VALUES ($1,$2,$3) 
         ON CONFLICT (user_id, event_id) 
         DO UPDATE SET status = EXCLUDED.status 
-        RETURNing *;`,
+        RETURNING *;`,
 			[user_id, id, status]
 		);
 
@@ -163,10 +145,7 @@ router.post("/:id/rsvp", async (req, res) => {
 			rsvp: result.rows[0],
 		});
 	} catch (err) {
-		console.error(err.message);
-		return res
-			.status(500)
-			.json({ message: "Database error", details: err.message });
+		res.status(404).json({ message: err.message });
 	}
 });
 
@@ -188,10 +167,7 @@ router.delete("/:id/rsvp", async (req, res) => {
 
 		res.status(200).json({ message: "RSVP removed" });
 	} catch (err) {
-		console.error(err.message);
-		return res
-			.status(500)
-			.json({ message: "Database error", details: err.message });
+		res.status(404).json({ message: err.message });
 	}
 });
 
@@ -206,4 +182,5 @@ router.get("/:id/rsvps", async (req, res) => {
 
 	res.status(200).json({ message: "Success", rsvp: result.rows });
 });
+
 export default router;

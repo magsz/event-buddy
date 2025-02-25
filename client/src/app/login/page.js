@@ -40,7 +40,6 @@ export default function LogIn() {
 			}
 
 			const data = await response.json();
-			console.log("Login Successful:", data);
 
 			localStorage.setItem("token", data.token);
 			localStorage.setItem("userId", data.userId);
@@ -49,7 +48,7 @@ export default function LogIn() {
 				router.push("/events");
 			}
 		} catch (error) {
-			console.log(error.message);
+			alert(error);
 		}
 	}
 

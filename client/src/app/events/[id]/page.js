@@ -8,7 +8,6 @@ export default function EventDetail() {
 	const userId = localStorage.getItem("userId");
 	const token = localStorage.getItem("token");
 	const [event, setEvent] = useState(null);
-	const [error, setError] = useState(null);
 	const [isEditing, setIsEditing] = useState(false);
 	const [rsvp, setRsvp] = useState(true);
 	const [formData, setFormData] = useState({
@@ -32,8 +31,8 @@ export default function EventDetail() {
 				const data = await response.json();
 				setEvent(data);
 				setFormData(data);
-			} catch (err) {
-				setError(err.message);
+			} catch (error) {
+				alert(error);
 			}
 		}
 
@@ -64,8 +63,8 @@ export default function EventDetail() {
 				setIsEditing(false);
 				router.push("/events");
 			}
-		} catch (err) {
-			console.log(err.message);
+		} catch (error) {
+			alert(error);
 		}
 	}
 
@@ -83,8 +82,8 @@ export default function EventDetail() {
 				alert("Event deleted!");
 				router.push("/events");
 			}
-		} catch (err) {
-			console.log(err.message);
+		} catch (error) {
+			alert(error);
 		}
 	}
 
@@ -107,10 +106,8 @@ export default function EventDetail() {
 				);
 
 				const data = await response.json();
-
-				console.log(data);
-			} catch (err) {
-				console.error(err.message);
+			} catch (error) {
+				alert(error)
 			}
 		} else {
 			const response = await fetch(
@@ -127,11 +124,9 @@ export default function EventDetail() {
 			);
 
 			const data = await response.json();
-			console.log(data);
 		}
 	}
 
-	if (error) return <p>Error: {error}</p>;
 	if (!event) return <p>Loading event details...</p>;
 
 	return (
