@@ -1,4 +1,5 @@
 "use client";
+import "../globals.css";
 import { useState } from "react";
 
 export default function CreateEvent() {
@@ -73,7 +74,7 @@ export default function CreateEvent() {
 					value={formData.title}
 					onChange={handleChange}
 					placeholder="Title"
-					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+					className="createFormInput"
 					required
 				/>
 				<textarea
@@ -81,14 +82,14 @@ export default function CreateEvent() {
 					value={formData.description}
 					onChange={handleChange}
 					placeholder="Description"
-					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+					className="createFormInput"
 					required></textarea>
 				<input
 					type="date"
 					name="startDate"
 					value={formData.startDate}
 					onChange={handleChange}
-					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+					className="createFormInput"
 					required
 				/>
 				<input
@@ -96,7 +97,7 @@ export default function CreateEvent() {
 					name="endDate"
 					value={formData.endDate}
 					onChange={handleChange}
-					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+					className="createFormInput"
 					required
 				/>
 				<input
@@ -105,7 +106,7 @@ export default function CreateEvent() {
 					value={formData.location}
 					onChange={handleChange}
 					placeholder="Location"
-					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+					className="createFormInput"
 					required
 				/>
 				<input
@@ -114,12 +115,12 @@ export default function CreateEvent() {
 					value={formData.genre}
 					onChange={handleChange}
 					placeholder="Genre"
-					className="text-black w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+					className="createFormInput"
 					required
 				/>
 				<button
 					type="submit"
-					className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-500 transition"
+					className="createFormButton"
 					disabled={loading}>
 					{loading ? "Creating..." : "Create Event"}
 				</button>

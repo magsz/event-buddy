@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Event from "../components/event";
 
 export default function Events() {
 	const [events, setEvents] = useState([]);
@@ -58,7 +59,7 @@ export default function Events() {
 			const data = await res.json();
 			setEvents(data);
 		} catch (error) {
-			alert(error)
+			alert(error);
 		}
 	}
 
@@ -71,22 +72,15 @@ export default function Events() {
 	}
 
 	const eventsList = events.map((event) => (
-		<div key={event.id} className="p-6 rounded-lg shadow-lg mb-4">
-			<Link
-				href={"events/" + event.id}
-				key={event.id}
-				className="text-2xl font-semibold text-purple-500">
-				{event.title}
-			</Link>
-			<p className="text-lg mt-2">{event.description}</p>
-			<p className="text-sm text-gray-400 mt-2">{event.location}</p>
-			<span className="text-sm text-purple-300">{event.genre}</span>
-			<br />
-			<span className="text-sm text-gray-500 mt-2">
-				{new Date(event.startdate).toLocaleDateString("en-US")}-
-				{new Date(event.enddate).toLocaleDateString("en-US")}
-			</span>
-		</div>
+		<Event
+			key={event.id}
+			id={event.id}
+			title={event.title}
+			description={event.description}
+			location={event.location}
+			genre={event.genre}
+			startDate={event.startDate}
+			endDate={event.endDate}></Event>
 	));
 
 	return (

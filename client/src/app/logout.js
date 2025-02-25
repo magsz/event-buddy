@@ -1,4 +1,5 @@
 "use client";
+import "./globals.css";
 
 import { useRouter } from "next/navigation";
 
@@ -13,9 +14,7 @@ export default function LogoutButton() {
 	}
 
 	return (
-		<button
-			className="m-4 hover:text-purple-500 text-md"
-			onClick={handleLogout}>
+		<button className="navLink" onClick={handleLogout}>
 			Log Out
 		</button>
 	);

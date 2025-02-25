@@ -19,3 +19,56 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.navLinkContainer{
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: flex-end;
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2rem /* 32px */ * var(--tw-space-x-reverse));
+  margin-left: calc(2rem /* 32px */ * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.navLink{
+  margin: 1rem;
+  font-size: medium;
+}
+
+.navLink:hover{
+  color: rgb(168 85 247 / var(--tw-text-opacity, 1));
+}
+
+.createFormInput{
+  color:black;
+  width:100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+}
+  
+
+.createFormButton{
+  width: 100%;
+
+  --tw-bg-opacity: 1;
+    background-color: rgb(147 51 234 / var(--tw-bg-opacity, 1));
+
+  color:white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.loginFormInput{
+  color:black;
+  margin-top: 0.25rem;
+  width: 100%;
+  padding: 0.5rem;
+  border-width: 1px;
+  border-radius: .375rem;
+}

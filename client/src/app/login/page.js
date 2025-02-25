@@ -1,5 +1,5 @@
 "use client";
-
+import "../globals.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -81,7 +81,7 @@ export default function LogIn() {
 							onChange={handleChange}
 							placeholder="User@email.com..."
 							required
-							className="text-black mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+							className="loginFormInput"
 						/>
 					</div>
 
@@ -98,7 +98,7 @@ export default function LogIn() {
 							onChange={handleChange}
 							placeholder="password..."
 							required
-							className="text-black mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+							className="loginFormInput"
 						/>
 					</div>
 

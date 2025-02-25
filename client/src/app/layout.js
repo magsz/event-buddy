@@ -7,22 +7,16 @@ export default function RootLayout({ children }) {
 		<html lang="en">
 			<body>
 				<nav className="p-4">
-					<div className="max-w-7xl mx-auto flex justify-end space-x-8">
-						<Link
-							className="m-4 hover:text-purple-500 text-md"
-							href="/">
+					<div className="navLinkContainer">
+						<Link className="navLink" href="/">
 							Home
 						</Link>
 
-						<Link
-							className="m-4 hover:text-purple-500 text-md"
-							href="/events">
+						<Link className="navLink" href="/events">
 							Events
 						</Link>
 
-						<Link
-							className="m-4 hover:text-purple-500 text-md"
-							href="/login">
+						<Link className="navLink" href="/login">
 							Log In
 						</Link>
 						<LogoutButton></LogoutButton>
