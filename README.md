@@ -4,67 +4,62 @@ EventBuddy is a full-stack event management platform that makes it easy to creat
 
 ## Features
 
-User Authentication – Secure signup and login.
+* User Authentication – Secure signup and login.
 
-Event Management – Create, edit, delete, and browse events.
+* Event Management – Create, edit, delete, and browse events.
 
-RSVP & Attendee Tracking – Users can RSVP, and organizers can manage attendees.
+* RSVP  – Users can RSVP.
 
-Search & Filters – Find events based on location, category, and date.
-
-User Profiles – Optional feature for managing event history and preferences.
-
-Image Uploads – Upload event-related images.
-
-Notifications – Stay in the loop with event reminders (optional feature).
+* Search – Find events based on location, category, and date.
 
 ## Tech Stack
 
-Frontend (Client)
+* Frontend (Client)
 
-Next.js – Fast, server-rendered React framework
+* Next.js – Fast, server-rendered React framework
 
-Tailwind CSS – Modern styling framework
+* Tailwind CSS – Modern styling framework
 
-Backend (Server)
+## Backend (Server)
 
-Node.js – JavaScript runtime for backend logic
+* Node.js – JavaScript runtime for backend logic
 
-Express.js – Lightweight framework for API development
+* Express.js – Lightweight framework for API development
 
-SQL Database (PostgreSQL/MySQL) – Structured data storage
+* SQL Database (PostgreSQL/MySQL) – Structured data storage
 
 ## Other Technologies
 
-JWT Authentication – Secure user login
+* JWT Authentication – Secure user login
 
 
 
 # Installation & Setup
 
-Prerequisites
+## Prerequisites
 
-Make sure you have the following installed:
+### Make sure you have the following installed:
 
 Node.js (v16+ recommended)
 
 PostgreSQL/MySQL (depending on your choice of database)
 
-Steps
+### Steps
 
-Clone the repo:
+### Clone the repo:
 
 ```bash
 git clone https://github.com/yourusername/eventbuddy.git
 cd eventbuddy
 ```
-Install dependencies:
+### Install dependencies:
 
 ```bash
 npm install
 ```
 
-Set up environment variables:
+###Set up environment variables:
+
 Create a .env file and add your DB connection, JWT secret, API keys, etc.
 
 ### Start the client:
@@ -81,16 +76,16 @@ cd server
 npm run start
 ```
 
-Usage
+## Usage
 
-Sign up and log in.
+* Sign up and log in.
 
-Create a new event with details like name, date, location, and description.
+* Create a new event with details like name, date, location, and description.
 
-Browse events and RSVP.
+* Browse events and RSVP.
 
-Manage your created events and track attendees.
+* Manage your created events and track attendees.
 
-Author
+## Author
 
 Mario Gomez
