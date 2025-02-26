@@ -1,8 +1,8 @@
-EventBuddy
+# EventBuddy
 
 EventBuddy is a full-stack event management platform that makes it easy to create, manage, and attend events. Built with Next.js, Node.js/Express, and an SQL database, it streamlines the event experience for both organizers and attendees.
 
-Features
+## Features
 
 User Authentication – Secure signup and login.
 
@@ -18,7 +18,7 @@ Image Uploads – Upload event-related images.
 
 Notifications – Stay in the loop with event reminders (optional feature).
 
-Tech Stack
+## Tech Stack
 
 Frontend (Client)
 
@@ -34,13 +34,13 @@ Express.js – Lightweight framework for API development
 
 SQL Database (PostgreSQL/MySQL) – Structured data storage
 
-Other Technologies
+## Other Technologies
 
 JWT Authentication – Secure user login
 
 
 
-Installation & Setup
+# Installation & Setup
 
 Prerequisites
 
@@ -54,25 +54,32 @@ Steps
 
 Clone the repo:
 
+```bash
 git clone https://github.com/yourusername/eventbuddy.git
 cd eventbuddy
-
+```
 Install dependencies:
 
+```bash
 npm install
+```
 
 Set up environment variables:
 Create a .env file and add your DB connection, JWT secret, API keys, etc.
 
-Start the client:
+### Start the client:
 
+``` bash
 cd client
 npm run dev
+```
 
-Start the server:
+### Start the server:
 
+```bash
 cd server
 npm run start
+```
 
 Usage
 
