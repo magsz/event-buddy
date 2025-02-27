@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Event from "../components/event";
+import NavBar from "../components/navbar";
 
 export default function Events() {
 	const [events, setEvents] = useState([]);
@@ -84,23 +85,26 @@ export default function Events() {
 	));
 
 	return (
-		<div className="min-h-screen py-12 px-4">
-			<h1 className="text-4xl font-extrabold text-center text-purple-500 mb-8">
-				Events Page
-			</h1>
-			<div className="flex justify-center mb-6">
-				<input
-					type="text"
-					placeholder="Search for events..."
-					onChange={handleSearchQuery}
-					className="w-full max-w-md px-4 py-2 border text-black border-purple-500 rounded-lg focus:outline-none focus:ring-purple-400"></input>
-				<button
-					onClick={handleSearch}
-					className="px-4 py-2 bg-purple-700 text-white font-semibold rounded-lg hover:bg-purple-500 transition duration-300">
-					Search
-				</button>
+		<>
+			<NavBar></NavBar>
+			<div className="min-h-screen py-12 px-4">
+				<h1 className="text-4xl font-extrabold text-center text-purple-500 mb-8">
+					Events Page
+				</h1>
+				<div className="flex justify-center mb-6">
+					<input
+						type="text"
+						placeholder="Search for events..."
+						onChange={handleSearchQuery}
+						className="w-full max-w-md px-4 py-2 border text-black border-purple-500 rounded-lg focus:outline-none focus:ring-purple-400"></input>
+					<button
+						onClick={handleSearch}
+						className="px-4 py-2 bg-purple-700 text-white font-semibold rounded-lg hover:bg-purple-500 transition duration-300">
+						Search
+					</button>
+				</div>
+				<div className="max-w-3xl mx-auto">{eventsList}</div>
 			</div>
-			<div className="max-w-3xl mx-auto">{eventsList}</div>
-		</div>
+		</>
 	);
 }

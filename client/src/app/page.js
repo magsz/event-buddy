@@ -1,8 +1,10 @@
 import Link from "next/link";
+import NavBar from "./components/navbar";
 
 export default function Home() {
 	return (
 		<div>
+			<NavBar></NavBar>
 			<section className="text-center py-20 bg-grey-700 text-white">
 				<h1 className="text-4xl font-bold">
 					Discover & Manage Events Effortlessly

@@ -58,6 +58,7 @@ router.post("/login", async (req, res) => {
 
 		const user = result.rows[0];
 		const userId = result.rows[0].id;
+		const userName = result.rows[0].username;
 
 		const isMatch = await bcrypt.compare(password, user.password);
 
@@ -73,7 +74,7 @@ router.post("/login", async (req, res) => {
 			{ expiresIn: process.env.TOKEN_EXPIRATION }
 		);
 
-		res.json({ message: "Log in Succesful", token, userId });
+		res.json({ message: "Log in Succesful", token, userId, userName});
 	} catch (err) {
 		res.status(404).json({ message: err.message });
 	}
